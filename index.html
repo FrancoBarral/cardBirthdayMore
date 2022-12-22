@@ -13,7 +13,7 @@
 <body>
     <header class="header content">
         <div class="header-video">
-          <video src="fondo.mp4" autoplay loop muted playsinline poster=""></video>
+          <video src="fondo.mp4" class="video" muted="muted" loop="loop" autoplay="autoplay"></video>
         </div>
         <div class="header-overlay"></div>
         <div class="header-content text-center">
@@ -104,7 +104,26 @@
         );
     </script>
     <script>
-    
+        var isIOS = /iPad|iPhone|iPod/.test(navigator.platform);
+	
+        if (isIOS) {
+
+            var canvasVideo = new CanvasVideoPlayer({
+                videoSelector: '.video',
+                canvasSelector: '.canvas',
+                timelineSelector: false,
+                autoplay: true,
+                makeLoop: true,
+                pauseOnClick: false,
+                audio: false
+            });
+
+        }else {
+
+            // Use HTML5 video
+            document.querySelectorAll('.canvas')[0].style.display = 'none';
+
+        }	
         var deadline = new Date("Mar 12, 2023 13:30:00").getTime();
         
         var x = setInterval(function() {
